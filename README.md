@@ -94,7 +94,24 @@ LearningKnights/
 - **Accent:** #FFD700 (Gold)
 - **Background:** Deep Royal Black/Grey
 
-## 👤 Founder
+## � Deployment
+
+The easiest way to deploy this Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+### Steps to Deploy
+
+1. **Push to GitHub**: Ensure your project is pushed to a GitHub repository.
+2. **Import to Vercel**: 
+   - Go to Vercel and click **"Add New..."** > **"Project"**.
+   - Select your GitHub repository.
+3. **Configure Environment Variables**:
+   - In the Vercel deployment screen, expand the **"Environment Variables"** section.
+   - Add the following keys (copy values from your local `.env.local`):
+     - `NEXT_PUBLIC_SUPABASE_URL`
+     - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+4. **Deploy**: Click **"Deploy"**. Vercel will build your app and provide a live URL (e.g., `learningknights.vercel.app`).
+
+## �👤 Founder
 
 **Yogeshwaran**
 - Email: yogeshwarandofficial@gmail.com
