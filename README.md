@@ -14,105 +14,85 @@ The theme blends modern minimalism (like Zoom) with a touch of historic fantasy 
 
 - Node.js 18+ installed
 - npm or yarn package manager
+- A **Supabase** account
 
 ### Installation
 
-1. Install dependencies:
-```bash
-npm install
-```
+1. **Clone the repository:**
+   ```bash
+   git clone <repository_url>
+   cd LearningKnights
+   ```
 
-2. Run the development server:
-```bash
-npm run dev
-```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
+3. **Environment Setup:**
+   Create a file named `.env.local` in the root directory and add your Supabase credentials:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
 
-### Build for Production
+4. **Database Setup:**
+   - Log in to your Supabase Dashboard.
+   - Go to the **SQL Editor**.
+   - Copy the contents of the file `SUPABASE_SETUP.sql` from this project.
+   - Run the script to create the necessary Tables (`profiles`, `journal_entries`), Policies, and Triggers.
 
-```bash
-npm run build
-npm start
-```
+5. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 📁 Project Structure
 
 ```
 LearningKnights/
 ├── app/                    # Next.js App Router pages
-│   ├── (auth)/            # Authentication pages
+│   ├── (auth)/            # Authentication pages (Login/Signup)
 │   ├── dashboard/         # Main dashboard
 │   ├── learnings/         # Learning categories
-│   ├── journal/           # Journal page
-│   ├── about/             # About page
-│   └── contact/           # Contact page
+│   ├── journal/           # Journal page with PDF export
+│   └── ...
 ├── components/            # React components
-│   ├── ui/               # Reusable UI components
-│   └── layout/           # Layout components (Navbar, Footer)
-├── lib/                  # Utilities and helpers
-│   └── auth.js           # Mock authentication
-└── public/               # Static assets
+├── lib/                  # Utilities (Supabase client, Auth context)
+├── public/               # Static assets
+└── SUPABASE_SETUP.sql    # Database schema definitions
 ```
 
 ## 🎨 Features
 
-### Implemented (MVP)
-
-- ✅ Landing page with hero section and feature cards
-- ✅ Mock authentication (login/signup) with localStorage
-- ✅ Main dashboard with 4 learning categories
-- ✅ Communication section with:
-  - Sub-dashboard with progress tracking
-  - Beginner level syllabus (5 lessons)
-  - 2 complete lessons (Day 1 & Day 2) with:
-    - Storytelling introductions
-    - Tutorial content
-    - Example dialogues
-    - Interactive quizzes
-  - Vocabulary page with searchable verb forms
-- ✅ Journal page with entry editor
-- ✅ About and Contact pages
-- ✅ Dark mode toggle
-- ✅ Responsive design (mobile, tablet, desktop)
-- ✅ Navigation with mobile menu
-
-### Coming Soon
-
-- Intermediate and Advanced communication levels
-- Entrepreneurship, Technology, and Finance content
-- Firebase authentication integration
-- Progress tracking with Firestore
-- Badge and reward system
-- Daily word of the day (dynamic)
+### Implemented
+- ✅ **Authentication**: Secure Login/Signup powered by Supabase Auth.
+- ✅ **Dashboard**: Personalized user hub with XP, Level, and Streak tracking.
+- ✅ **Journaling**:
+  - Securely store entries in the cloud (Supabase Database).
+  - **Export to PDF**: Download your entire journal as a formatted PDF.
+  - Rich text editor with a Royal Dark aesthetic.
+- ✅ **Learning Modules**:
+  - Communication Skills (Vocabulary, Lessons).
+  - Placeholder structures for Entrepreneurship, Tech, and Finance.
+- ✅ **Design**: Premium "Dark Royal" aesthetic with Animations.
 
 ## 🛠️ Tech Stack
 
-- **Framework:** Next.js 14+ (App Router)
+- **Framework:** Next.js 14 (App Router)
+- **Backend:** Supabase (Auth & Database)
 - **Styling:** Tailwind CSS
 - **Icons:** Lucide React
-- **Theme:** next-themes (dark mode)
+- **PDF Generation:** jsPDF
 - **Language:** JavaScript
 
 ## 🎯 Design System
 
-### Colors
-
 - **Primary:** #0B5CFF (Knight Blue)
 - **Accent:** #FFD700 (Gold)
-- **Background:** #FFFFFF / #F5F5F5
-
-### Fonts
-
-- **Primary:** Outfit
-- **Secondary:** Poppins
-
-## 📝 Notes
-
-- Authentication is currently mocked using localStorage
-- User progress is stored locally
-- Journal entries are saved in localStorage
-- Firebase integration is planned for future phases
+- **Background:** Deep Royal Black/Grey
 
 ## 👤 Founder
 
