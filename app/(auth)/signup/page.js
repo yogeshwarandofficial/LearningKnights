@@ -15,7 +15,7 @@ export default function SignupPage() {
   const router = useRouter()
   const { signup } = useAuth()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
 
@@ -34,16 +34,16 @@ export default function SignupPage() {
       return
     }
 
-    const result = signup(name, email, password)
+    const result = await signup(name, email, password)
     if (result.success) {
       router.push('/dashboard')
     } else {
-      setError('Signup failed. Please try again.')
+      setError(result.error || 'Signup failed. Please try again.')
     }
   }
 
   return (
-    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center px-4 py-12">
+    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center px-4 pt-32 pb-12">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">

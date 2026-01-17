@@ -69,7 +69,7 @@ export default function DashboardPage() {
   ]
 
   return (
-    <div className="min-h-[calc(100vh-200px)] py-8 px-4">
+    <div className="min-h-[calc(100vh-200px)] pt-32 pb-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Welcome Section */}
         <div className="mb-8">

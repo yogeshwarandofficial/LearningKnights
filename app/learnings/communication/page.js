@@ -42,7 +42,7 @@ export default function CommunicationDashboard() {
   const progressPercentage = user.xp ? Math.min((user.xp / 500) * 100, 100) : 0
 
   return (
-    <div className="min-h-[calc(100vh-200px)] py-8 px-4">
+    <div className="min-h-[calc(100vh-200px)] pt-32 pb-12 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-4 gap-6">
           {/* Sidebar */}
@@ -115,29 +115,34 @@ export default function CommunicationDashboard() {
             </Card>
 
             {/* Word of the Day */}
-            <Card className="bg-gradient-to-br from-primary/10 to-accent/10">
-              <CardContent className="p-6">
+            <div className="card-royal p-8 rounded-xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
+                <BookOpen className="w-32 h-32 text-primary" />
+              </div>
+              <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-4">
                   <BookOpen className="w-6 h-6 text-primary" />
-                  <h2 className="text-2xl font-bold">Word of the Day</h2>
+                  <h2 className="text-2xl font-bold font-serif text-white">Word of the Day</h2>
                 </div>
-                <div className="space-y-3">
+                {/* We use a local simple display here, main one is on Home */}
+                <div className="space-y-4">
                   <div>
-                    <h3 className="text-3xl font-bold text-primary mb-2">
-                      {wordOfTheDay.word}
+                    <h3 className="text-3xl font-bold text-gradient-gold mb-2">
+                      {/* This could be dynamic, but for this specific page let's keep it simple or import */}
+                      Resilient
                     </h3>
-                    <p className="text-gray-700 dark:text-gray-300">
-                      <strong>Meaning:</strong> {wordOfTheDay.meaning}
+                    <p className="text-gray-300">
+                      <strong>Meaning:</strong> Able to recover quickly from difficulties
                     </p>
                   </div>
-                  <div className="bg-white dark:bg-gray-800 p-4 rounded-lg">
-                    <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-                      &quot;{wordOfTheDay.usage}&quot;
+                  <div className="bg-white/5 border border-primary/20 p-4 rounded-lg">
+                    <p className="text-sm text-gray-400 italic font-serif">
+                      &quot;The knight remained resilient even after defeat.&quot;
                     </p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Quick Start */}
             <Card>

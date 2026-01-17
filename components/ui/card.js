@@ -1,7 +1,7 @@
 export function Card({ children, className = '', ...props }) {
   return (
     <div
-      className={`bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 ${className}`}
+      className={`card-royal rounded-xl p-6 ${className}`}
       {...props}
     >
       {children}

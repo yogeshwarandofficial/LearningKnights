@@ -13,7 +13,7 @@ export default function LoginPage() {
   const router = useRouter()
   const { login } = useAuth()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
 
@@ -22,16 +22,16 @@ export default function LoginPage() {
       return
     }
 
-    const result = login(email, password)
+    const result = await login(email, password)
     if (result.success) {
       router.push('/dashboard')
     } else {
-      setError('Login failed. Please try again.')
+      setError(result.error || 'Login failed. Please try again.')
     }
   }
 
   return (
-    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center px-4 py-12">
+    <div className="min-h-[calc(100vh-200px)] flex items-center justify-center px-4 pt-32 pb-12">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">

@@ -10,6 +10,7 @@ import { useAuth } from '@/lib/auth'
 export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
+  // Forced dark mode, so toggle might be redundant but we keep logic to avoid breaks
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -40,13 +41,15 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
+    <nav className="fixed w-full z-50 transition-all duration-300 bg-black/80 backdrop-blur-md border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <Shield className="w-8 h-8 text-primary" />
-            <span className="text-xl font-bold text-gray-900 dark:text-white">
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+              <Shield className="w-8 h-8 text-primary" />
+            </div>
+            <span className="text-xl font-bold font-serif tracking-tight text-white group-hover:text-primary transition-colors">
               LearningKnights
             </span>
           </Link>
@@ -59,55 +62,38 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center space-x-1 px-4 py-2 rounded-lg transition-colors ${
-                    isActive(link.href)
-                      ? 'bg-primary text-white'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                  }`}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 font-medium text-sm tracking-wide ${isActive(link.href)
+                    ? 'bg-primary/20 text-primary border border-primary/20'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    }`}
                 >
                   <Icon className="w-4 h-4" />
                   <span>{link.label}</span>
                 </Link>
               )
             })}
-            
+
             {user && (
               <button
                 onClick={handleLogout}
-                className="flex items-center space-x-1 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 ml-4 text-gray-400 hover:text-red-400 transition-colors"
+                title="Depart from Court"
               >
-                <LogOut className="w-4 h-4" />
-                <span>Log Out</span>
-              </button>
-            )}
-
-            {/* Dark Mode Toggle */}
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                <LogOut className="w-5 h-5" />
               </button>
             )}
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-2">
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-2 rounded-lg text-gray-700 dark:text-gray-300"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          <div className="md:hidden flex items-center space-x-4">
+            {user && (
+              <button onClick={handleLogout} className="text-gray-400">
+                <LogOut className="w-5 h-5" />
               </button>
             )}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-gray-700 dark:text-gray-300"
-              aria-label="Toggle menu"
+              className="p-2 text-white"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -116,7 +102,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-800">
+          <div className="md:hidden py-4 border-t border-white/10 bg-black animate-fade-in">
             {navLinks.map((link) => {
               const Icon = link.icon
               return (
@@ -124,29 +110,16 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center space-x-2 px-4 py-3 rounded-lg transition-colors ${
-                    isActive(link.href)
-                      ? 'bg-primary text-white'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-                  }`}
+                  className={`flex items-center space-x-3 px-4 py-4 ${isActive(link.href)
+                    ? 'text-primary bg-primary/5'
+                    : 'text-gray-400 hover:bg-white/5'
+                    }`}
                 >
                   <Icon className="w-5 h-5" />
-                  <span>{link.label}</span>
+                  <span className="font-serif tracking-wide">{link.label}</span>
                 </Link>
               )
             })}
-            {user && (
-              <button
-                onClick={() => {
-                  handleLogout()
-                  setMobileMenuOpen(false)
-                }}
-                className="flex items-center space-x-2 w-full px-4 py-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              >
-                <LogOut className="w-5 h-5" />
-                <span>Log Out</span>
-              </button>
-            )}
           </div>
         )}
       </div>

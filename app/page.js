@@ -1,119 +1,178 @@
+'use client'
+
 import Link from 'next/link'
-import { Shield, BookOpen, TrendingUp, Code, DollarSign } from 'lucide-react'
+import { Shield, BookOpen, TrendingUp, Code, DollarSign, Sword, Crown, Scroll } from 'lucide-react'
+import DailyWisdom from '@/components/daily-wisdom'
+import { useAuth } from '@/lib/auth'
 
 export default function Home() {
+  const { user } = useAuth()
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pb-20">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-20 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="flex justify-center mb-6">
-            <Shield className="w-16 h-16 text-accent" />
+      <section className="relative pt-32 pb-20 px-4 overflow-hidden">
+        {/* Background Gradients */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-primary/20 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary mb-8 animate-fade-in-up">
+            <Crown className="w-4 h-4" />
+            <span className="text-sm font-semibold tracking-wider uppercase">Welcome to LearningKnights</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            LearningKnights
+
+          <h1 className="text-6xl md:text-8xl font-bold mb-8 tracking-tight">
+            <span className="block text-white mb-2">Build Your</span>
+            <span className="text-gradient-gold">Future</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-4 text-blue-100">
-            Every Knight starts with words.
+
+          <p className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+            Master the skills that matter. Enhance your communication, financial literacy, and technical expertise in a premium learning environment.
           </p>
-          <p className="text-lg md:text-xl mb-4 text-blue-100">
-            Sharpen your tongue like a sword.
-          </p>
-          <p className="text-xl md:text-2xl font-semibold text-accent mb-8">
-            At LearningKnights, your growth is your quest.
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Link
-              href="/signup"
-              className="bg-accent text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-accent-dark transition-colors"
-            >
-              Start Your Journey
-            </Link>
-            <Link
-              href="/login"
-              className="bg-white/20 text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/30 transition-colors"
-            >
-              Login
-            </Link>
+
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {user ? (
+              <Link
+                href="/dashboard"
+                className="group relative px-8 py-4 bg-primary text-black font-bold text-lg rounded-lg overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(255,215,0,0.3)]"
+              >
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                <span className="relative flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5" />
+                  Continue Learning
+                </span>
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/signup"
+                  className="group relative px-8 py-4 bg-primary text-black font-bold text-lg rounded-lg overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(255,215,0,0.3)]"
+                >
+                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                  <span className="relative flex items-center gap-2">
+                    <TrendingUp className="w-5 h-5" />
+                    Start Learning
+                  </span>
+                </Link>
+
+                <Link
+                  href="/login"
+                  className="px-8 py-4 bg-white/5 border border-white/10 text-white font-semibold text-lg rounded-lg hover:bg-white/10 transition-colors backdrop-blur-sm"
+                >
+                  Log In
+                </Link>
+              </>
+            )}
           </div>
+        </div>
+      </section>
+
+      {/* Daily Wisdom Section */}
+      <section className="px-4 py-12">
+        <div className="max-w-7xl mx-auto">
+          <DailyWisdom />
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 px-4 bg-background">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Master Your Skills
-          </h2>
+      <section className="py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Learning Modules
+            </h2>
+            <div className="h-1 w-24 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto" />
+            <p className="mt-4 text-gray-400">Select a path to begin your journey</p>
+          </div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link
+            <ModuleCard
               href="/learnings/communication"
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border-2 border-transparent hover:border-primary"
-            >
-              <BookOpen className="w-12 h-12 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Communication Skills</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Improve your English communication through interactive lessons and practice.
-              </p>
-            </Link>
+              icon={BookOpen}
+              title="Communication"
+              subtitle="Speaking & Writing"
+              description="Master the art of effective communication. Improve your public speaking and writing skills."
+            />
 
-            <Link
+            <ModuleCard
               href="/learnings/entrepreneurship"
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border-2 border-transparent hover:border-primary"
-            >
-              <TrendingUp className="w-12 h-12 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Entrepreneurship</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Learn startup guidance and business strategies from real-world examples.
-              </p>
-            </Link>
+              icon={TrendingUp}
+              title="Entrepreneurship"
+              subtitle="Business Strategy"
+              description="Learn how to build and scale a business. Strategies for modern leadership."
+            />
 
-            <Link
+            <ModuleCard
               href="/learnings/technology"
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border-2 border-transparent hover:border-primary"
-            >
-              <Code className="w-12 h-12 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Technology Tutorials</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Master programming, tools, and modern tech skills step by step.
-              </p>
-            </Link>
+              icon={Code}
+              title="Technology"
+              subtitle="Development & Tools"
+              description="Stay ahead with the latest in technology, programming, and digital tools."
+            />
 
-            <Link
+            <ModuleCard
               href="/learnings/finance"
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow border-2 border-transparent hover:border-primary"
-            >
-              <DollarSign className="w-12 h-12 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Finance</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Understand personal and business finance fundamentals.
-              </p>
-            </Link>
+              icon={DollarSign}
+              title="Finance"
+              subtitle="Wealth Management"
+              description="Understand personal finance, investing, and wealth building strategies."
+            />
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 px-4 bg-primary/10">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Don&apos;t just learn — rise.
-          </h2>
-          <p className="text-xl mb-2 text-gray-700 dark:text-gray-300">
-            From grammar to greatness,
-          </p>
-          <p className="text-xl mb-8 text-gray-700 dark:text-gray-300">
-            From ideas to empire.
-          </p>
-          <Link
-            href="/signup"
-            className="inline-block bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
-          >
-            Start Your Learning Journey
-          </Link>
+      {/* Journal CTA */}
+      <section className="py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="card-royal p-12 rounded-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
+              <Scroll className="w-64 h-64 text-primary" />
+            </div>
+
+            <div className="relative z-10 max-w-2xl">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                Your Personal Journal
+              </h2>
+              <p className="text-xl text-gray-300 mb-8">
+                Reflect on your progress. Use your personal journal to document insights, ideas, and milestones.
+              </p>
+              <Link
+                href="/journal"
+                className="inline-flex items-center gap-2 text-primary hover:text-primary-light font-bold text-lg group"
+              >
+                Open Journal
+                <BookOpen className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </main>
+  )
+}
+
+function ModuleCard({ href, icon: Icon, title, subtitle, description }) {
+  return (
+    <Link
+      href={href}
+      className="card-royal p-8 rounded-xl group hover:-translate-y-2 transition-transform duration-300"
+    >
+      <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+        <Icon className="w-7 h-7 text-primary" />
+      </div>
+
+      <div className="mb-2">
+        <span className="text-xs font-bold text-primary uppercase tracking-widest">{subtitle}</span>
+      </div>
+
+      <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">
+        {title}
+      </h3>
+
+      <p className="text-gray-400 leading-relaxed">
+        {description}
+      </p>
+    </Link>
   )
 }
 
