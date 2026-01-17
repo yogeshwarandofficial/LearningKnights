@@ -45,7 +45,7 @@ export default function DailyWisdom() {
 
                     <div className="pl-4 border-l-2 border-primary/30 py-2 my-4">
                         <p className="text-gray-400 italic font-serif">
-                            "{word.example}"
+                            &quot;{word.example}&quot;
                         </p>
                     </div>
 
@@ -67,7 +67,7 @@ export default function DailyWisdom() {
                     </div>
 
                     <blockquote className="text-2xl md:text-3xl font-serif text-gray-100 italic mb-6 leading-relaxed">
-                        "{quote.text}"
+                        &quot;{quote.text}&quot;
                     </blockquote>
 
                     <cite className="text-primary font-semibold not-italic tracking-wide">
